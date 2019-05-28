@@ -5,6 +5,8 @@ class RegisterPage extends Component {
   state = {
     username: '',
     password: '',
+    email: '',
+    phonenumber: '',
   };
 
   registerUser = (event) => {
@@ -16,6 +18,8 @@ class RegisterPage extends Component {
         payload: {
           username: this.state.username,
           password: this.state.password,
+          email: this.state.email,
+          phonenumber: this.state.phonenumber,
         },
       });
     } else {
@@ -62,6 +66,28 @@ class RegisterPage extends Component {
                 value={this.state.password}
                 onChange={this.handleInputChangeFor('password')}
               />
+            </label>
+          </div>
+          <div>
+            <label htmlFor="email">
+            Email: 
+            <input
+            type="email"
+            name="email"
+            value={this.state.email} 
+            onChange={this.handleInputChangeFor('email')}
+            />
+            </label>
+          </div>
+          <div>
+            <label htmlFor="phonenumber">
+            Phone Number: 
+            <input
+            type="number"
+            name="phonenumber"
+            value={this.state.phonenumber} 
+            onChange={this.handleInputChangeFor('phonenumber')}
+            />
             </label>
           </div>
           <div>
