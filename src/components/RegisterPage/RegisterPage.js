@@ -34,6 +34,8 @@ class RegisterPage extends Component {
   }
 
   render() {
+    console.log(this.state);
+
     return (
       <div>
         {this.props.errors.registrationMessage && (
@@ -72,7 +74,7 @@ class RegisterPage extends Component {
             <label htmlFor="email">
             Email: 
             <input
-            type="email"
+            type="text"
             name="email"
             value={this.state.email} 
             onChange={this.handleInputChangeFor('email')}
@@ -83,7 +85,7 @@ class RegisterPage extends Component {
             <label htmlFor="phonenumber">
             Phone Number: 
             <input
-            type="number"
+            type="text"
             name="phonenumber"
             value={this.state.phonenumber} 
             onChange={this.handleInputChangeFor('phonenumber')}
