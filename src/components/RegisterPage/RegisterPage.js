@@ -7,6 +7,9 @@ class RegisterPage extends Component {
     password: '',
     email: '',
     phonenumber: '',
+    kid : [
+      {name : '', dob: '', gender : ''},
+    ]
   };
 
   registerUser = (event) => {
@@ -20,6 +23,7 @@ class RegisterPage extends Component {
           password: this.state.password,
           email: this.state.email,
           phonenumber: this.state.phonenumber,
+          name : this.state.kid.name,
         },
       });
     } else {
@@ -89,6 +93,39 @@ class RegisterPage extends Component {
             name="phonenumber"
             value={this.state.phonenumber} 
             onChange={this.handleInputChangeFor('phonenumber')}
+            />
+            </label>
+          </div>
+          <div>
+            <label htmlFor="kid">
+            Name: 
+            <input
+            type="text"
+            name="name"
+            value={this.state.kid.name} 
+            onChange={this.handleInputChangeFor('name')}
+            />
+            </label>
+          </div>
+          <div>
+            <label htmlFor="kid">
+            DOB: 
+            <input
+            type="text"
+            name="dob"
+            value={this.state.kid.dob} 
+            onChange={this.handleInputChangeFor('dob')}
+            />
+            </label>
+          </div>
+          <div>
+            <label htmlFor="kid">
+            Gender: 
+            <input
+            type="text"
+            name="gender"
+            value={this.state.kid.gender} 
+            onChange={this.handleInputChangeFor('gender')}
             />
             </label>
           </div>
