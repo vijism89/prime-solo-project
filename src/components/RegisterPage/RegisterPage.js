@@ -18,13 +18,17 @@ class RegisterPage extends Component {
     if (this.state.username && this.state.password) {
       this.props.dispatch({
         type: 'REGISTER',
-        payload: {
+        payload: 
+        {
           username: this.state.username,
           password: this.state.password,
           email: this.state.email,
           phonenumber: this.state.phonenumber,
-          name : this.state.kid.name,
-        },
+          kid : [ { name : this.state.kid.name,
+          dob: this.state.kid.dob,
+          gender: this.state.kid.gender,  
+           } ]
+         },
       });
     } else {
       this.props.dispatch({type: 'REGISTRATION_INPUT_ERROR'});
@@ -102,7 +106,7 @@ class RegisterPage extends Component {
             <input
             type="text"
             name="name"
-            value={this.state.kid.name} 
+            value={this.state.kid[0].name} 
             onChange={this.handleInputChangeFor('name')}
             />
             </label>
@@ -121,12 +125,11 @@ class RegisterPage extends Component {
           <div>
             <label htmlFor="kid">
             Gender: 
-            <input
-            type="text"
-            name="gender"
-            value={this.state.kid.gender} 
-            onChange={this.handleInputChangeFor('gender')}
-            />
+            <select value={this.state.kid.gender} onChange={this.handleInputChangeFor('gender')}>
+              <option value="select">select</option>
+              <option value="male">male</option>
+              <option value="female">female</option>
+            </select>
             </label>
           </div>
           <div>

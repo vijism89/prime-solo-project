@@ -4,11 +4,13 @@
     display: inline-block;
     color: #f2f2f2;
     padding-left: 10px;
+   
 }
 
 .nav {
   overflow: hidden;
-  background-color: #00acb0;
+  background-color: #00acb0;/* For browsers that do not support gradients */
+  background-image: linear-gradient(to bottom right, #00acb0, rgb(0, 225, 255), rgb(0, 77, 128)); /* Standard syntax (must be last) */
 }
 
 .nav-link {
