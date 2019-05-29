@@ -11,6 +11,7 @@ class InfoPage extends Component {
     return(
   <div>
     <h2>CREATE EVENT</h2>
+    <form>
     <div>
       <input placeholder="Event Name" />
     </div>
@@ -32,6 +33,7 @@ class InfoPage extends Component {
     <div>
       <button>Create</button>
     </div>
+    </form>
   </div>
     )
 }
