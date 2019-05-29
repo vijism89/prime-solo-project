@@ -6,10 +6,30 @@ import React from 'react';
 // or even care what the redux state is, so it doesn't need 'connect()'
 
 const InfoPage = () => (
+  
   <div>
-    <p>
-      Info Page
-    </p>
+    <h2>CREATE EVENT</h2>
+    <div>
+      <input placeholder="Event Name" />
+    </div>
+    <div>
+      <input placeholder="Date" />
+    </div>
+    <div>
+      <input placeholder="Place" />
+    </div>
+    <div>
+      <input placeholder="Host Info" />
+    </div>
+    <div>
+      <input placeholder="Comments" />
+    </div>
+    <div>
+      <button>Invites</button>
+    </div>
+    <div>
+      <button>Create</button>
+    </div>
   </div>
 );
 
