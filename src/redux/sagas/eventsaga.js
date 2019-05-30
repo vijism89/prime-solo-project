@@ -5,7 +5,7 @@ import axios from 'axios';
 function* registerEvent(action) {
     try{
      // passes the event information from the payload to the server
-     yield axios.post('api/event', action.payload);
+     yield axios.post('api/event/:id', action.payload);
      yield put({type: 'SET_EVENT', payload: action.payload});
     } catch (error) {
         console.log('Error with creating event', error);

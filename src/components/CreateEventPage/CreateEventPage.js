@@ -5,14 +5,14 @@ import {connect} from 'react-redux';
 // It doesn't dispatch any redux actions or display any part of redux state
 // or even care what the redux state is, so it doesn't need 'connect()'
 
-class InfoPage extends Component {
+class CreateEventPage extends Component {
   state = {
     eventname: '',
     date: '',
     place: '',
     hostinfo: '',
     comments: ''
-  }
+  };
   
   registerEvent = (event) => {
     event.preventDefault();
@@ -24,8 +24,8 @@ class InfoPage extends Component {
         place: this.state.place,
         hostinfo: this.state.hostinfo,
         comments: this.state.comments,
-      }
-    })
+      },
+    });
   }
   handleInputChangeFor = propertyName => (event) => {
     this.setState({
@@ -35,9 +35,9 @@ class InfoPage extends Component {
   render () {
     console.log(this.state);
     return(
-  <div>
-     <h2>CREATE EVENT</h2>
-    <form onSubmit={this.registerEvent}>
+   <div>
+    <form className="event-form">
+    <h2>CREATE EVENT</h2>
     <div>
       <label htmlFor="eventname">
       Event Name:
@@ -98,9 +98,8 @@ class InfoPage extends Component {
     </div>
     <div>
       <button 
-      type="button"
       className="create-button"
-      onClick={() => {this.props.dispatch({type: 'SET_EVENT'})}}
+      onClick={this.registerEvent}
       >
       Create
       </button>
@@ -119,4 +118,4 @@ const mapStateToProps = (reduxState) => {
 }  
 
 
-export default connect(mapStateToProps)(InfoPage);
+export default connect(mapStateToProps)(CreateEventPage);

@@ -15,7 +15,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
-import InfoPage from '../InfoPage/InfoPage';
+import CreateEventPage from '../CreateEventPage/CreateEventPage';
 import SuccessPage from '../SuccessPage/SuccessPage';
 import './App.css';
 
@@ -52,8 +52,8 @@ class App extends Component {
             they will see the info page instead. */}
             <ProtectedRoute
               exact
-              path="/info"
-              component={InfoPage}
+              path="/createevent"
+              component={CreateEventPage}
             />
             <ProtectedRoute 
             exact 
