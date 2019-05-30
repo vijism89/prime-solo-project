@@ -22,6 +22,11 @@ class SuccessPage extends Component {
                     <td>vijism89@gmail.com</td>
                     <td>yes</td>
                   </tr>
+                  <tr>
+                  <td>shrivatsav</td>
+                  <td>vijism89@gmail.com</td>
+                  <td>yes</td>  
+                  </tr>
                   </tbody>
               </table>
           </div>

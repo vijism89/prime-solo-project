@@ -6,26 +6,92 @@ import {connect} from 'react-redux';
 // or even care what the redux state is, so it doesn't need 'connect()'
 
 class InfoPage extends Component {
+  state = {
+    eventname: '',
+    date: '',
+    place: '',
+    hostinfo: '',
+    comments: ''
+  }
   
+  registerEvent = (event) => {
+    event.preventDefault();
+    this.props.dispatch({
+      type: 'CREATE_EVENT',
+      payload: {
+        eventname: this.state.eventname,
+        date: this.state.date,
+        place: this.state.place,
+        hostinfo: this.state.hostinfo,
+        comments: this.state.comments,
+      }
+    })
+  }
+  handleInputChangeFor = propertyName => (event) => {
+    this.setState({
+      [propertyName]: event.target.value,
+    });
+  }
   render () {
+    console.log(this.state);
     return(
   <div>
-    <h2>CREATE EVENT</h2>
-    <form>
+     <h2>CREATE EVENT</h2>
+    <form onSubmit={this.registerEvent}>
     <div>
-      <input placeholder="Event Name" />
+      <label htmlFor="eventname">
+      Event Name:
+      <input 
+      type="text"
+      name="eventname"
+      value={this.state.eventname}
+      onChange={this.handleInputChangeFor('eventname')}
+      />
+      </label>
     </div>
     <div>
-      <input placeholder="Date" />
+      <label htmlFor="date">
+      Date:
+      <input 
+      type="text"
+      name="date"
+      value={this.state.date}
+      onChange={this.handleInputChangeFor('date')}
+      />
+      </label>
     </div>
     <div>
-      <input placeholder="Place" />
+    <label htmlFor="place">
+      Place:
+      <input 
+      type="text"
+      name="Place"
+      value={this.state.place}
+      onChange={this.handleInputChangeFor('place')}
+      />
+      </label>
     </div>
     <div>
-      <input placeholder="Host Info" />
+    <label htmlFor="hostinfo">
+      Host Info:
+      <input 
+      type="text"
+      name="hostinfo"
+      value={this.state.hostinfo}
+      onChange={this.handleInputChangeFor('hostinfo')}
+      />
+      </label>
     </div>
     <div>
-      <input placeholder="Comments" />
+    <label htmlFor="comments">
+      Comments:
+      <input 
+      type="text"
+      name="comments"
+      value={this.state.comments}
+      onChange={this.handleInputChangeFor('comments')}
+      />
+      </label>
     </div>
     <div>
       <button>Invites</button>
@@ -39,4 +105,12 @@ class InfoPage extends Component {
 }
 }
 
-export default connect()(InfoPage);
+
+const mapStateToProps = (reduxState) => {
+    return {
+        reduxState
+    }
+}  
+
+
+export default connect(mapStateToProps)(InfoPage);
