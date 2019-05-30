@@ -5,7 +5,9 @@ import axios from 'axios';
 function* registerKid(action) {
     try {
          // passes the kid detail to the server
-        yield axios.post('api/child', action.payload)
+        yield axios.post('api/child/:id', action.payload)
+
+        // passing the kid detail to the reducer
         yield put({ type: 'KID_TO_ADD', payload: action.payload});
     } catch (error) {
         console.log(error);

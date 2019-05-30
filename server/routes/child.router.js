@@ -3,7 +3,7 @@ const pool = require('../modules/pool');
 
 const router = express.Router();
 
-router.post('/:id', (req, res, next) => {
+router.post('/:id', (req, res) => {
     console.log(req.body) 
     const kid = req.body.kid;
     const dob = req.body.dob;
