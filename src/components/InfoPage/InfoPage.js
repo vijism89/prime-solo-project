@@ -97,7 +97,13 @@ class InfoPage extends Component {
       <button>Invites</button>
     </div>
     <div>
-      <button>Create</button>
+      <button 
+      type="button"
+      className="create-button"
+      onClick={() => {this.props.dispatch({type: 'SET_EVENT'})}}
+      >
+      Create
+      </button>
     </div>
     </form>
   </div>

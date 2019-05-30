@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+//import KidsPage from '../KidsPage/KidsPage';
+//import './RegisterPage.css';
 
 class RegisterPage extends Component {
   state = {
@@ -7,9 +9,6 @@ class RegisterPage extends Component {
     password: '',
     email: '',
     phonenumber: '',
-    kid : [
-      {name : '', dob: '', gender : ''},
-    ]
   };
 
   registerUser = (event) => {
@@ -24,10 +23,6 @@ class RegisterPage extends Component {
           password: this.state.password,
           email: this.state.email,
           phonenumber: this.state.phonenumber,
-          kid : [ { name : this.state.kid.name,
-          dob: this.state.kid.dob,
-          gender: this.state.kid.gender,  
-           } ]
          },
       });
     } else {
@@ -54,7 +49,7 @@ class RegisterPage extends Component {
             {this.props.errors.registrationMessage}
           </h2>
         )}
-        <form onSubmit={this.registerUser}>
+        <form className="register-form" onSubmit={this.registerUser}>
           <h1>Register User</h1>
           <div>
             <label htmlFor="username">
@@ -100,38 +95,7 @@ class RegisterPage extends Component {
             />
             </label>
           </div>
-          <div>
-            <label htmlFor="kid">
-            Name: 
-            <input
-            type="text"
-            name="name"
-            value={this.state.kid[0].name} 
-            onChange={this.handleInputChangeFor('name')}
-            />
-            </label>
-          </div>
-          <div>
-            <label htmlFor="kid">
-            DOB: 
-            <input
-            type="text"
-            name="dob"
-            value={this.state.kid.dob} 
-            onChange={this.handleInputChangeFor('dob')}
-            />
-            </label>
-          </div>
-          <div>
-            <label htmlFor="kid">
-            Gender: 
-            <select value={this.state.kid.gender} onChange={this.handleInputChangeFor('gender')}>
-              <option value="select">select</option>
-              <option value="male">male</option>
-              <option value="female">female</option>
-            </select>
-            </label>
-          </div>
+          
           <div>
             <input
               className="register"
