@@ -7,9 +7,7 @@ const router = express.Router();
 router.get('/:id', (req,res) => {
     console.log(req.params.id);
     let query = `SELECT * FROM "event"
-    JOIN "user_child_event" ON user_child_event.event_id = event.id
-    JOIN "child" ON user_child_event.child_id = child.id
-    WHERE child_id = $1;`;
+    WHERE user_id = $1`;
     pool.query(query,[req.params.id])
         .then( (result) => {
             res.send(result.rows);
