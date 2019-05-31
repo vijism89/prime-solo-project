@@ -105,7 +105,7 @@ class CreateEventPage extends Component {
               this.props.reduxState.kids.length>0 
               ? this.props.reduxState.kids.map(kid => {
                 return (
-                  <option value={kid.id}>{kid.kid}</option>
+                  <option key={kid.id} value={kid.id}>{kid.kid}</option>
                 )
               }) : <option></option>}
             </select>
