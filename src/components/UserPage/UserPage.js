@@ -57,7 +57,7 @@ class UserPage extends Component {
               </tbody>
                    </table>
                </div>
-        <button>Create</button>
+        <button className="create-button">Create</button>
         <LogOutButton className="log-in" />
       </div>
     )

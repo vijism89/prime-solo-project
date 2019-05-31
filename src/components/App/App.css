@@ -9,9 +9,9 @@ body {
 }
 
 form {
-    background-color: #dbd5d5;
+    background-color: #97dce2;
     width: 30%;
-    height: 350px;
+    height: 450px;
     margin: 20px auto;
     padding: 25px;
     border-radius: 2px;
@@ -25,15 +25,17 @@ input {
 .log-in, .log-out, .register {
   background-color: #00acb0;
   border-radius: 4px;
-  color: #f8f8f8;
+  color: #030303;
   min-height: 50px;
   min-width: 100px;
   outline:0;
   cursor: pointer;
+   font-style: bold;
+   position: relative;
 }
 
 .log-in:hover, .log-out:hover, .register:hover {
-  background-color: #003d83;
+  background-color: #830083;
 }
 
 /* This line makes the "Register" and "Login" buttons look like links */
@@ -60,6 +62,36 @@ table {
   tr:nth-child(even){background-color: #f2f2f2}
   
   th {
-    background-color: #4CAF50;
-    color: white;
+    background-color: rgb(27, 221, 235);
+    color: rgb(5, 5, 5);
+  }
+
+  .kids-form {
+    background-color: #92d7dd;
+    width: 20%;
+    height: 150px;
+    margin: 20px auto;
+    padding: 25px;
+    border-radius: 4px;
+    text-align: center;
+  }
+
+  .create-button {
+    background-color: #00acb0;
+    border-radius: 4px;
+    color: #030303;
+    min-height: 50px;
+    min-width: 100px;
+    outline:0;
+    cursor: pointer;
+  }
+
+  .invite-button {
+    background-color: #00acb0;
+    border-radius: 4px;
+    color: #030303;
+    min-height: 50px;
+    min-width: 100px;
+    outline:0;
+    cursor: pointer;
   }

@@ -111,15 +111,14 @@ class CreateEventPage extends Component {
             </select>
           </div>
           <div>
-            <button>Invites</button>
+            <button className="invite-button">Invites</button>
           </div>
           <div>
             <button
               className="create-button"
-              onClick={this.registerEvent}
-            >
-              Create
-      </button>
+              onClick={this.registerEvent}>
+              Create 
+              </button>
           </div>
         </form>
       </div>
