@@ -66,7 +66,7 @@ class KidsPage extends Component {
           <option value="female">female</option>
         </select>
         </label>
-        <button onClick={this.registerKid}>Add Kid</button>
+        <button className="add-button"onClick={this.registerKid}>Add Kid</button>
       </div>
       </form>
       </div>

@@ -18,13 +18,13 @@ class SuccessPage extends Component {
                     <th>Response</th>
                   </tr>
                   <tr>
-                    <td>shrivatsav</td>
-                    <td>vijism89@gmail.com</td>
+                    <td>shri</td>
+                    <td>viji@gmail.com</td>
                     <td>yes</td>
                   </tr>
                   <tr>
-                  <td>shrivatsav</td>
-                  <td>vijism89@gmail.com</td>
+                  <td>shriv</td>
+                  <td>sridhar@gmail.com</td>
                   <td>yes</td>  
                   </tr>
                   </tbody>

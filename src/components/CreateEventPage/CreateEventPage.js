@@ -112,8 +112,7 @@ class CreateEventPage extends Component {
           </div>
           <div>
             <button className="invite-button">Invites</button>
-          </div>
-          <div>
+          <br></br>
             <button
               className="create-button"
               onClick={this.registerEvent}>

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import KidsPage from '../KidsPage/KidsPage';
 //import { actionChannel } from 'redux-saga/effects';
+//import { actionChannel } from 'redux-saga/effects';
 // this could also be written with destructuring parameters as:
 // const UserPage = ({ user }) => (
 // and then instead of `props.user.username` you could use `user.username`
@@ -12,6 +13,11 @@ class UserPage extends Component {
   componentWillMount() {
     console.log('events are here');
     this.props.dispatch({ type: 'GET_EVENTS',payload:this.props.reduxState.user.id });
+  }
+
+  deleteEvent = (eventIdToDelete) => {
+    console.log('print',this.props.reduxState.user.id)
+    this.props.dispatch({ type:'DELETE_EVENT', payload: {eventId:`${eventIdToDelete}`, userId:`${this.props.reduxState.user.id}`}})
   }
 
   render() {
@@ -36,28 +42,35 @@ class UserPage extends Component {
                          <th>PLACE</th>
                          <th>HOST INFO</th>
                          <th>COMMENTS</th>
+                         <th>DETAILS</th>
+                         <th>UPDATE</th>
+                         <th>DELETE</th>
                          </tr>
         {this.props.reduxState.events!=null && 
               this.props.reduxState.events.length>0 
               ? this.props.reduxState.events.map(event => {
                 return (
                   //  <p>{event.id}</p>
-                   
-                      <tr>
-                         <td>{event.id}</td>
+                       <tr key={event.id}>
+                         <td >{event.id}</td>
                          <td>{event.eventname}</td>
                          <td>{event.date}</td>
                          <td>{event.place}</td>
                          <td>{event.contact_info}</td>
                          <td>{event.comments}</td>
+                         <td><button>Details</button></td>
+                         <td><button>Update</button></td>
+                         <td><button value={event.id} onClick={() => this.deleteEvent(event.id)}>Delete</button></td>
                        </tr>
-                      
-                )
+                    )
               }) : <tr></tr>}
               </tbody>
                    </table>
                </div>
-        <button className="create-button">Create</button>
+        <button
+            type="button"
+            className="create-button"
+          >Create</button>
         <LogOutButton className="log-in" />
       </div>
     )
