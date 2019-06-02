@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import KidsPage from '../KidsPage/KidsPage';
+import FriendRequestPage from '../FriendRequestPage/FriendRequestPage';
 //import { actionChannel } from 'redux-saga/effects';
 //import { actionChannel } from 'redux-saga/effects';
 // this could also be written with destructuring parameters as:
@@ -27,6 +28,9 @@ class UserPage extends Component {
           Welcome, {this.props.reduxState.user.username}!
     </h1>
         <p>Your ID is: {this.props.reduxState.user.id}</p>
+        <div>
+          <button className="friend-button"> Friend Request </button>
+        </div>
         <div>
           <KidsPage />
         </div>
@@ -71,6 +75,7 @@ class UserPage extends Component {
             type="button"
             className="create-button"
           >Create</button>
+          <FriendRequestPage />
         <LogOutButton className="log-in" />
       </div>
     )
