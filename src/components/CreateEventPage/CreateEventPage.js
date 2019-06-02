@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Select from 'react-select';
 // This is one of our simplest components
 // It doesn't have local state, so it can be a function component.
 // It doesn't dispatch any redux actions or display any part of redux state
 // or even care what the redux state is, so it doesn't need 'connect()'
+// const options = [
+//   { value: 'chocolate', label: 'Chocolate' },
+//   { value: 'strawberry', label: 'Strawberry' },
+//   { value: 'vanilla', label: 'Vanilla' }
+// ];
 
 class CreateEventPage extends Component {
   state = {
@@ -11,8 +17,15 @@ class CreateEventPage extends Component {
     date: '',
     place: '',
     hostinfo: '',
-    comments: ''
+    comments: '',
+    invites: null,
+    
   };
+
+  handleChange = (invites) => {
+    this.setState({ invites });
+    console.log(`Option selected:`, invites);
+  }
 
   componentWillMount(){
     console.log('hello world');
@@ -24,11 +37,13 @@ class CreateEventPage extends Component {
     this.props.dispatch({
       type: 'CREATE_EVENT',
       payload: {
+        userId:this.props.reduxState.user.id,
         eventname: this.state.eventname,
         date: this.state.date,
         place: this.state.place,
         hostinfo: this.state.hostinfo,
         comments: this.state.comments,
+        invites: this.state.invites,
       },
     });
   }
@@ -38,6 +53,7 @@ class CreateEventPage extends Component {
     });
   }
   render() {
+    //  const { selectedOption } = this.state;
     console.log(this.state);
     return (
       <div>
@@ -100,15 +116,13 @@ class CreateEventPage extends Component {
           </div>
           <div>
             <span>Select Kids</span>
-            <select name="kidsname" multiple>
-              {this.props.reduxState.kids!=null && 
-              this.props.reduxState.kids.length>0 
-              ? this.props.reduxState.kids.map(kid => {
-                return (
-                  <option key={kid.id} value={kid.id}>{kid.kid}</option>
-                )
-              }) : <option></option>}
-            </select>
+            <Select isMulti="true" isSearchable="true"
+        value={this.state.invites}
+        onChange={this.handleChange}
+        options={this.props.reduxState.kids!=null &&
+          this.props.reduxState.kids.length>0 
+          ? this.props.reduxState.kids:[]}
+           />
           </div>
           <div>
             <button className="invite-button">Invites</button>

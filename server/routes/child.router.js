@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get('/:id', (req,res) => {
     console.log(req.params.id);
-    let query = `SELECT * FROM "child"
+    let query = `SELECT id as value, childname as label FROM "child"
     WHERE user_id = $1;`;
     pool.query(query,[req.params.id])
         .then( (result) => {
@@ -19,16 +19,17 @@ router.get('/:id', (req,res) => {
 }
 ) 
 
+
 //handle POST request with kid data
 router.post('/:id', (req, res) => {
     console.log(req.body) 
-    const kid = req.body.kid;
+    const childname = req.body.childname;
     const dob = req.body.dob;
     const gender = req.body.gender;
 
-    const queryText = `INSERT INTO "child" ("user_id", "kid", "dob", "gender")
+    const queryText = `INSERT INTO "child" ("user_id", "childname", "dob", "gender")
     VALUES ($1, $2, $3, $4);`;
-    pool.query(queryText, [req.user.id, kid, dob, gender])
+    pool.query(queryText, [req.user.id, childname, dob, gender])
     .then(() => res.sendStatus(201))
     .catch((err) => {
         console.log(err)

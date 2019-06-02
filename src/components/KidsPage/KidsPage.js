@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 class KidsPage extends Component {
 
   state = {
-   kid: '',
+   childname: '',
    dob: '',
    gender: '',
   };
@@ -16,7 +16,7 @@ class KidsPage extends Component {
           type: 'ADD_KID',
           payload: 
           {
-            kid: this.state.kid,
+            childname: this.state.childname,
             dob: this.state.dob,
             gender: this.state.gender,
            },
@@ -36,13 +36,13 @@ class KidsPage extends Component {
         <form className="kids-form" >
             <h1>Register Kid</h1>
         <div>
-        <label htmlFor="kid">
+        <label htmlFor="childname">
         Name: 
         <input
         type="text"
-        name="kid"
-        value={this.state.kid} 
-        onChange={this.handleInputChangeFor('kid')}
+        name="childname"
+        value={this.state.childname} 
+        onChange={this.handleInputChangeFor('childname')}
         />
         </label>
       </div>
