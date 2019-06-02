@@ -28,50 +28,45 @@ router.post('/', async (req, res) => {
     try {
         const {
             userId,
-            eventname,
-            date,
-            place,
-            hostinfo,
-            comments,
-            invites
+            userFriends
         } = req.body;
         await client.query('BEGIN')
-        const eventInsertResults = await client.query(`INSERT INTO "event" ("user_id", "eventname", "date", "place", "contact_info", "comments", "status")
-        VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id;`, [userId, eventname, date, place, hostinfo, comments, 'N']);
-        console.log('here 1');
-        const eventId = eventInsertResults.rows[0].id;
+        // const friendInsertResults = await client.query(`INSERT INTO "user_friend" ("user_id", "user_friend_id", "status")
+        // VALUES ($1, $2, $3) RETURNING id;`, [userId, userFriends, 'N']);
+        // console.log('here 1');
+        // const friendId = friendInsertResults.rows[0].id;
 
-        await Promise.all(invites.map(invite => {
-            const insertEventChildText = `INSERT INTO "user_child_event" ("event_id", "child_id", "status") VALUES ($1, $2, $3)`;
-            const insertEventChildValues = [eventId, invite.value, 'N'];
-            return client.query(insertEventChildText, insertEventChildValues);
+        await Promise.all(userFriends.map(friend => {
+            const insertFriendText = `INSERT INTO "user_friend" ("user_id", "user_friend_id", "status") VALUES ($1, $2, $3)`;
+            const insertFriendValues = [userId, friend.value, 'N'];
+            return client.query(insertFriendText, insertFriendValues);
         }));
 
         await client.query('COMMIT')
         res.sendStatus(201);
     } catch (error) {
         await client.query('ROLLBACK')
-        console.log('Error POST /api/event', error);
+        console.log('Error POST /api/friend', error);
         res.sendStatus(500);
     } finally {
         client.release()
     }
 });
 
-router.delete('/:id',(req, res) => {
-    console.log('delete this', req.params.id)
-    let sqlQuery = `
-    UPDATE "event" 
-    SET status = 'D'
-    WHERE "id" = $1;`
-    pool.query(sqlQuery, [req.params.id])
-    .then((result) => {
-        console.log('response from DELETE route:', result);
-        res.sendStatus(200)
-    }).catch((error) => {
-        console.log('error in DELETE route:', error);
-        res.sendStatus(500);
-    });
-})
+// router.delete('/:id',(req, res) => {
+//     console.log('delete this', req.params.id)
+//     let sqlQuery = `
+//     UPDATE "event" 
+//     SET status = 'D'
+//     WHERE "id" = $1;`
+//     pool.query(sqlQuery, [req.params.id])
+//     .then((result) => {
+//         console.log('response from DELETE route:', result);
+//         res.sendStatus(200)
+//     }).catch((error) => {
+//         console.log('error in DELETE route:', error);
+//         res.sendStatus(500);
+//     });
+// })
 
 module.exports = router;
