@@ -3,11 +3,37 @@ import { connect } from 'react-redux';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import KidsPage from '../KidsPage/KidsPage';
 import FriendRequestPage from '../FriendRequestPage/FriendRequestPage';
+import BigCalendar from 'react-big-calendar';
+import moment from 'moment';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+
 //import { actionChannel } from 'redux-saga/effects';
 //import { actionChannel } from 'redux-saga/effects';
 // this could also be written with destructuring parameters as:
 // const UserPage = ({ user }) => (
 // and then instead of `props.user.username` you could use `user.username`
+
+
+const localizer = BigCalendar.momentLocalizer(moment) // or globalizeLocalizer
+const aaa1 = {
+  title: 'test1',
+  start: new Date("2019-06-02"),
+  end: new Date("2019-06-03"),
+  allDay: true,
+  resource: '',
+}
+const aaa2= {
+  title: 'test2',
+  start: new Date("2019-06-04"),
+  end: new Date("2019-06-04"),
+  allDay: true,
+  resource: '',
+}
+
+const myEventsList = [
+    aaa1,aaa2
+]
+
 
 class UserPage extends Component {
 
@@ -35,6 +61,14 @@ class UserPage extends Component {
           <KidsPage />
         </div>
         <h3>Schedule</h3>
+        <div className="calenderDiv">
+      <BigCalendar
+      localizer={localizer}
+      events={myEventsList}
+      startAccessor="start"
+      endAccessor="end"
+       />
+        </div>
         <p>Events</p>
         <div>
                    <table>

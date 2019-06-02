@@ -116,3 +116,7 @@ table {
     outline:0;
     cursor: pointer;
 }
+
+.calenderDiv {
+  height: 300px;
+}
