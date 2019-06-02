@@ -55,7 +55,11 @@ class UserPage extends Component {
     </h1>
         <p>Your ID is: {this.props.reduxState.user.id}</p>
         <div>
-          <button className="friend-button"> Friend Request </button>
+          <button 
+          type="button"
+          className="friend-button"
+          onClick={() => {this.props.history.push('/friendrequestpage');}}
+          > Friend Request </button>
         </div>
         <div><button
             type="button"
@@ -115,7 +119,6 @@ class UserPage extends Component {
               </tbody>
                    </table>
                </div>
-          <FriendRequestPage />
         <LogOutButton className="log-in" />
       </div>
     )

@@ -19,6 +19,7 @@ import CreateEventPage from '../CreateEventPage/CreateEventPage';
 import SuccessPage from '../SuccessPage/SuccessPage';
 import KidsPage from '../KidsPage/KidsPage';
 import './App.css';
+import FriendRequestPage from '../FriendRequestPage/FriendRequestPage';
 
 
 class App extends Component {
@@ -66,6 +67,11 @@ class App extends Component {
               exact
               path="/kidspage"
               component={KidsPage}
+            />
+            <ProtectedRoute
+              exact
+              path="/friendrequestpage"
+              component={FriendRequestPage}
             />
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
