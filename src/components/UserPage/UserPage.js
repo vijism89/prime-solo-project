@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import LogOutButton from '../LogOutButton/LogOutButton';
-import KidsPage from '../KidsPage/KidsPage';
+//import KidsPage from '../KidsPage/KidsPage';
 import FriendRequestPage from '../FriendRequestPage/FriendRequestPage';
 import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
@@ -57,9 +57,19 @@ class UserPage extends Component {
         <div>
           <button className="friend-button"> Friend Request </button>
         </div>
-        <div>
+        <div><button
+            type="button"
+            className="create-button"
+            onClick={() => {this.props.history.push('/createevent');}}
+          >Create Event</button></div>
+          <div><button
+          type="button"
+          className="register-kid-button"
+          onClick={() => {this.props.history.push('/kidspage');}}
+          >Register Kid</button></div>
+        {/* <div>
           <KidsPage />
-        </div>
+        </div> */}
         <h3>Schedule</h3>
         <div className="calenderDiv">
       <BigCalendar
@@ -105,10 +115,6 @@ class UserPage extends Component {
               </tbody>
                    </table>
                </div>
-        <button
-            type="button"
-            className="create-button"
-          >Create</button>
           <FriendRequestPage />
         <LogOutButton className="log-in" />
       </div>
