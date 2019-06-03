@@ -19,6 +19,22 @@ router.get('/:id', (req,res) => {
 }
 )
 
+// getting the event detail for calender
+router.get('/cal/:id', (req,res) => {
+    console.log(req.params.id);
+    let query = `select c.childname ||':'|| e.eventname as title, startdate as start, enddate as end, 'false' as allDay, '' as resouce  from  user_child_event uce join child c on uce.child_id=c.id
+    join event e on e.id=uce.event_id where e.status!='D' and c.user_id =$1;`;
+    pool.query(query,[req.params.id])
+        .then( (result) => {
+            res.send(result.rows);
+        })
+        .catch( (error) => {
+            console.log(`Error on query ${error}`);
+            res.sendStatus(500);
+        })
+}
+)
+
 // handles POST request with event data
 // router.post('/:id',(req, res) => {
 //     console.log(req.body) 
@@ -47,15 +63,16 @@ router.post('/', async (req, res) => {
         const {
             userId,
             eventname,
-            date,
+            startdate,
+            enddate,
             place,
             hostinfo,
             comments,
             invites
         } = req.body;
         await client.query('BEGIN')
-        const eventInsertResults = await client.query(`INSERT INTO "event" ("user_id", "eventname", "date", "place", "contact_info", "comments", "status")
-        VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id;`, [userId, eventname, date, place, hostinfo, comments, 'N']);
+        const eventInsertResults = await client.query(`INSERT INTO "event" ("user_id", "eventname", "startdate","enddate", "place", "contact_info", "comments", "status")
+        VALUES ($1, $2, $3, $4, $5, $6, $7,$8) RETURNING id;`, [userId, eventname, startdate, enddate, place, hostinfo, comments, 'N']);
         console.log('here 1');
         const eventId = eventInsertResults.rows[0].id;
 

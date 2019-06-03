@@ -14,7 +14,8 @@ import Select from 'react-select';
 class CreateEventPage extends Component {
   state = {
     eventname: '',
-    date: '',
+    startdate: '',
+    enddate: '',
     place: '',
     hostinfo: '',
     comments: '',
@@ -39,7 +40,8 @@ class CreateEventPage extends Component {
       payload: {
         userId:this.props.reduxState.user.id,
         eventname: this.state.eventname,
-        date: this.state.date,
+        startdate: this.state.startdate,
+        enddate: this.state.enddate,
         place: this.state.place,
         hostinfo: this.state.hostinfo,
         comments: this.state.comments,
@@ -62,7 +64,7 @@ class CreateEventPage extends Component {
           <div>
             <label htmlFor="eventname">
               Event Name:
-      <input
+            <input
                 type="text"
                 name="eventname"
                 value={this.state.eventname}
@@ -71,13 +73,24 @@ class CreateEventPage extends Component {
             </label>
           </div>
           <div>
-            <label htmlFor="date">
-              Date:
-      <input
+            <label htmlFor="startdate">
+              Start Date and Time:
+            <input
                 type="text"
-                name="date"
-                value={this.state.date}
-                onChange={this.handleInputChangeFor('date')}
+                name="startdate"
+                value={this.state.startdate}
+                onChange={this.handleInputChangeFor('startdate')}
+              />
+            </label>
+          </div>
+          <div>
+            <label htmlFor="enddate">
+              End Date and Time:
+            <input
+                type="text"
+                name="enddate"
+                value={this.state.enddate}
+                onChange={this.handleInputChangeFor('enddate')}
               />
             </label>
           </div>

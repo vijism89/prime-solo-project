@@ -12,6 +12,17 @@ function* getEvents(action) {
         console.log(error)
     }
 }
+
+function* getEventsCal(action) {
+    console.log('abc',action.payload);
+    
+    try {
+        let eventResponse = yield axios.get(`/api/event/cal/${action.payload}`);
+        yield put({ type: 'SET_EVENTS_CAL', payload: eventResponse.data})
+    } catch (error) {
+        console.log(error)
+    }
+}
 // will be fired on "CREATE_EVENT" action
 function* registerEvent(action) {
     try{
@@ -39,6 +50,7 @@ function* eventsaga() {
     yield takeLatest('CREATE_EVENT', registerEvent);
     yield takeLatest('GET_EVENTS', getEvents);
     yield takeLatest('DELETE_EVENT', eventToDelete);
+    yield takeLatest('GET_EVENTS_CAL', getEventsCal);
 }
 
 export default eventsaga;

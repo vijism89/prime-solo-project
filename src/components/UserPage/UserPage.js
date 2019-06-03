@@ -15,24 +15,24 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 
 const localizer = BigCalendar.momentLocalizer(moment) // or globalizeLocalizer
-const aaa1 = {
-  title: 'test1',
-  start: new Date("2019-06-02"),
-  end: new Date("2019-06-03"),
-  allDay: true,
-  resource: '',
-}
-const aaa2= {
-  title: 'test2',
-  start: new Date("2019-06-04"),
-  end: new Date("2019-06-04"),
-  allDay: true,
-  resource: '',
-}
+// const aaa1 = {
+//   title: 'test1',
+//   start: new Date("2019-06-03 13:00:00"),
+//   end: new Date("2019-06-03 14:30:00"),
+//   allDay: false,
+//   resource: '',
+// }
+// const aaa2= {
+//   title: 'test 3',
+//   start: new Date("2019-06-03 15:30:00"),
+//   end: new Date("2019-06-03 16:30:00"),
+//   allDay: false,
+//   resource: '',
+// }
 
-const myEventsList = [
-    aaa1,aaa2
-]
+// const myEventsList = [
+//     aaa1,aaa2
+// ]
 
 
 class UserPage extends Component {
@@ -40,6 +40,7 @@ class UserPage extends Component {
   componentWillMount() {
     console.log('events are here');
     this.props.dispatch({ type: 'GET_EVENTS',payload:this.props.reduxState.user.id });
+    this.props.dispatch({ type: 'GET_EVENTS_CAL',payload:this.props.reduxState.user.id });
   }
 
   deleteEvent = (eventIdToDelete) => {
@@ -78,7 +79,9 @@ class UserPage extends Component {
         <div className="calenderDiv">
       <BigCalendar
       localizer={localizer}
-      events={myEventsList}
+      events={this.props.reduxState.eventsCal!=null && 
+        this.props.reduxState.eventsCal.length>0 
+        ? this.props.reduxState.eventsCal:[]}
       startAccessor="start"
       endAccessor="end"
        />
@@ -90,7 +93,8 @@ class UserPage extends Component {
                          <tr>
                        <th>E.ID</th>
                          <th>EVENT</th>
-                         <th>DATE</th>
+                         <th>START DATE</th>
+                         <th>END DATE</th>
                          <th>PLACE</th>
                          <th>HOST INFO</th>
                          <th>COMMENTS</th>
@@ -106,7 +110,8 @@ class UserPage extends Component {
                        <tr key={event.id}>
                          <td >{event.id}</td>
                          <td>{event.eventname}</td>
-                         <td>{event.date}</td>
+                         <td>{event.startdate}</td>
+                         <td>{event.enddate}</td>
                          <td>{event.place}</td>
                          <td>{event.contact_info}</td>
                          <td>{event.comments}</td>
