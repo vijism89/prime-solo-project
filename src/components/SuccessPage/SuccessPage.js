@@ -34,7 +34,11 @@ class SuccessPage extends Component {
         )
     }
 }
+const mapStateToProps = (reduxState) => {
+  return {
+    reduxState
+  }
+}
 
-
-export default connect()(SuccessPage);
+export default connect(mapStateToProps)(SuccessPage);
 

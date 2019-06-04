@@ -34,7 +34,8 @@ class FriendRequestPage extends Component {
         userId:this.props.reduxState.user.id,
         userFriends: this.state.userFriends,
       },
-    });
+    })
+    this.props.history.push('/home');
   }
   handleInputChangeFor = propertyName => (event) => {
     this.setState({

@@ -22,7 +22,8 @@ router.get('/:id', (req,res) => {
 // getting the event detail for calender
 router.get('/cal/:id', (req,res) => {
     console.log(req.params.id);
-    let query = `select c.childname ||':'|| e.eventname as title, startdate as start, enddate as end, 'false' as allDay, '' as resouce  from  user_child_event uce join child c on uce.child_id=c.id
+    let query = `select c.childname ||':'|| e.eventname as title, startdate as start, enddate as end, 'false' as allDay,
+     '' as resouce  from  user_child_event uce join child c on uce.child_id=c.id
     join event e on e.id=uce.event_id where e.status!='D' and c.user_id =$1;`;
     pool.query(query,[req.params.id])
         .then( (result) => {
@@ -75,7 +76,7 @@ router.post('/', async (req, res) => {
         VALUES ($1, $2, $3, $4, $5, $6, $7,$8) RETURNING id;`, [userId, eventname, startdate, enddate, place, hostinfo, comments, 'N']);
         console.log('here 1');
         const eventId = eventInsertResults.rows[0].id;
-
+// creating another query to insert the event and child relationship
         await Promise.all(invites.map(invite => {
             const insertEventChildText = `INSERT INTO "user_child_event" ("event_id", "child_id", "status") VALUES ($1, $2, $3)`;
             const insertEventChildValues = [eventId, invite.value, 'N'];

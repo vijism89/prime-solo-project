@@ -47,7 +47,8 @@ class CreateEventPage extends Component {
         comments: this.state.comments,
         invites: this.state.invites,
       },
-    });
+    })
+    this.props.history.push('/home');
   }
   handleInputChangeFor = propertyName => (event) => {
     this.setState({

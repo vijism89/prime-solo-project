@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import LogOutButton from '../LogOutButton/LogOutButton';
 //import KidsPage from '../KidsPage/KidsPage';
-import FriendRequestPage from '../FriendRequestPage/FriendRequestPage';
+//import FriendRequestPage from '../FriendRequestPage/FriendRequestPage';
 import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
@@ -55,6 +55,7 @@ class UserPage extends Component {
           Welcome, {this.props.reduxState.user.username}!
     </h1>
         <p>Your ID is: {this.props.reduxState.user.id}</p>
+        <div className="btn-group">
         <div>
           <button 
           type="button"
@@ -72,6 +73,8 @@ class UserPage extends Component {
           className="register-kid-button"
           onClick={() => {this.props.history.push('/kidspage');}}
           >Register Kid</button></div>
+          <div> <LogOutButton className="log-in" /></div>
+          </div>
         {/* <div>
           <KidsPage />
         </div> */}
@@ -124,7 +127,6 @@ class UserPage extends Component {
               </tbody>
                    </table>
                </div>
-        <LogOutButton className="log-in" />
       </div>
     )
   }

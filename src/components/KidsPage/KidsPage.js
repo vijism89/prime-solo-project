@@ -20,7 +20,8 @@ class KidsPage extends Component {
             dob: this.state.dob,
             gender: this.state.gender,
            },
-        });
+        })
+        this.props.history.push('/home');
       }
 
   handleInputChangeFor = propertyName => (event) => {

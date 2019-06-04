@@ -8,6 +8,13 @@ router.get('/:id', (req,res) => {
     console.log(req.params.id);
     let query = `SELECT id as value, childname as label FROM "child"
     WHERE user_id = $1;`;
+    // let query = `SELECT child.id as value, child.childname as label FROM child
+    // JOIN user_friend ON (user_friend.user_friend_id = child.user_id)
+    //  WHERE user_friend.user_id = $1
+    // union 
+    // SELECT child.id as value, child.childname as label FROM child 
+    // where child.user_id = $1;
+    // ;`;
     pool.query(query,[req.params.id])
         .then( (result) => {
             res.send(result.rows);

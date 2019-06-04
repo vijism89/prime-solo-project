@@ -3,7 +3,9 @@ const pool = require('../modules/pool');
 
 const router = express.Router();
 
-// getting the event detail 
+// getting the friend detail 
+//this will get the drop down values for friend request 
+//only the new user will be in this list
 router.get('/dd/:id', (req,res) => {
     console.log(req.params.id);
     let query = `SELECT id AS value, email AS label FROM "user"
@@ -21,7 +23,7 @@ router.get('/dd/:id', (req,res) => {
 }
 )
 
-// POST a new order
+// POST the user an their friend
 router.post('/', async (req, res) => {
     const client = await pool.connect();
 
