@@ -4,6 +4,10 @@ import { connect } from 'react-redux';
 
 class SuccessPage extends Component {
 
+  componentWillMount() {
+    this.props.dispatch({ type:'EVENT_DETAILS', payload:this.props.reduxState.user.id})
+  }
+
     render () {
         return(
             <div>
@@ -17,16 +21,17 @@ class SuccessPage extends Component {
                     <th>Email</th>
                     <th>Response</th>
                   </tr>
-                  <tr>
-                    <td>shri</td>
-                    <td>viji@gmail.com</td>
-                    <td>yes</td>
-                  </tr>
-                  <tr>
-                  <td>shriv</td>
-                  <td>sridhar@gmail.com</td>
-                  <td>yes</td>  
-                  </tr>
+                  {this.props.reduxState.eventDetails!=null && 
+              this.props.reduxState.eventDetails.length>0 
+              ? this.props.reduxState.eventDetails.map(detail => {
+                return (
+                  //  <p>{event.id}</p>
+                       <tr key={detail.id}>
+                         <td >{detail.childname}</td>
+                         <td>{detail.eventname}</td>
+                       </tr>
+                    )
+              }) : <tr></tr>}
                   </tbody>
               </table>
           </div>

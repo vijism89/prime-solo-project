@@ -13,6 +13,17 @@ function* getEvents(action) {
     }
 }
 
+function* eventDetails(action) {
+    console.log('abc',action.payload);
+    
+    try {
+        let detailsResponse = yield axios.get(`/api/event/success/${action.payload}`);
+        yield put({ type: 'SET_DETAILS', payload: detailsResponse.data})
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 function* getEventsCal(action) {
     console.log('abc',action.payload);
     
@@ -51,6 +62,7 @@ function* eventsaga() {
     yield takeLatest('GET_EVENTS', getEvents);
     yield takeLatest('DELETE_EVENT', eventToDelete);
     yield takeLatest('GET_EVENTS_CAL', getEventsCal);
+    yield takeLatest('EVENT_DETAILS', eventDetails)
 }
 
 export default eventsaga;

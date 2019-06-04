@@ -36,25 +36,21 @@ router.get('/cal/:id', (req,res) => {
 }
 )
 
-// handles POST request with event data
-// router.post('/:id',(req, res) => {
-//     console.log(req.body) 
-//     const eventname = req.body.eventname;
-//     const date = req.body.date;
-//     const place = req.body.place;
-//     const contact_info = req.body.hostinfo;
-//     const comments = req.body.comments;
-//     const invites = req.body.invites;
+router.get('/success/:id', (req,res) => {
+    console.log(req.params.id);
+    let query = `select c.childname, e.eventname  from  user_child_event uce join child c on uce.child_id=c.id
+    join event e on e.id=uce.event_id where e.status!='D' and c.user_id =$1;`;
+    pool.query(query,[req.params.id])
+        .then( (result) => {
+            res.send(result.rows);
+        })
+        .catch( (error) => {
+            console.log(`Error on query ${error}`);
+            res.sendStatus(500);
+        })
+}
+)
 
-//     const queryText = `INSERT INTO "event" ("user_id", "eventname", "date", "place", "contact_info", "comments")
-//     VALUES ($1, $2, $3, $4, $5, $6) RETURNING id;`;
-//     let eventId=pool.query(queryText, [req.user.id, eventname, date, place, contact_info, comments])
-//     .then(() => res.sendStatus(201))
-//     .catch((err) => {
-//         console.log(err)
-//         res.sendStatus(500)
-//     });
-// });
 
 // POST a new order
 router.post('/', async (req, res) => {

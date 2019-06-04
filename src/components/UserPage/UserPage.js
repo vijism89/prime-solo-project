@@ -118,7 +118,7 @@ class UserPage extends Component {
                          <td>{event.place}</td>
                          <td>{event.contact_info}</td>
                          <td>{event.comments}</td>
-                         <td><button>Details</button></td>
+                         <td><button onClick = {() => {this.props.history.push('/success');}}>Details</button></td>
                          <td><button>Update</button></td>
                          <td><button value={event.id} onClick={() => this.deleteEvent(event.id)}>Delete</button></td>
                        </tr>
