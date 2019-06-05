@@ -6,6 +6,7 @@ import LogOutButton from '../LogOutButton/LogOutButton';
 import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
+import swal from 'sweetalert';
 
 //import { actionChannel } from 'redux-saga/effects';
 //import { actionChannel } from 'redux-saga/effects';
@@ -15,24 +16,24 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 
 const localizer = BigCalendar.momentLocalizer(moment) // or globalizeLocalizer
-// const aaa1 = {
-//   title: 'test1',
-//   start: new Date("2019-06-03 13:00:00"),
-//   end: new Date("2019-06-03 14:30:00"),
-//   allDay: false,
-//   resource: '',
-// }
-// const aaa2= {
-//   title: 'test 3',
-//   start: new Date("2019-06-03 15:30:00"),
-//   end: new Date("2019-06-03 16:30:00"),
-//   allDay: false,
-//   resource: '',
-// }
+const aaa1 = {
+  title: 'test1',
+  start: new Date("2019-06-03 13:00:00"),
+  end: new Date("2019-06-03 14:30:00"),
+  allDay: false,
+  resource: '',
+}
+const aaa2= {
+  title: 'test 3',
+  start: new Date("2019-06-03 15:30:00"),
+  end: new Date("2019-06-03 16:30:00"),
+  allDay: false,
+  resource: '',
+}
 
-// const myEventsList = [
-//     aaa1,aaa2
-// ]
+const myEventsList = [
+    aaa1,aaa2
+]
 
 
 class UserPage extends Component {
@@ -46,6 +47,8 @@ class UserPage extends Component {
   deleteEvent = (eventIdToDelete) => {
     console.log('print',this.props.reduxState.user.id)
     this.props.dispatch({ type:'DELETE_EVENT', payload: {eventId:`${eventIdToDelete}`, userId:`${this.props.reduxState.user.id}`}})
+    swal("Done!", "You deleted an event!");
+    
   }
 
   render() {

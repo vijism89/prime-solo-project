@@ -17,7 +17,7 @@ const Nav = (props) => (
         {props.user.id ? 'Home' : 'Login / Register'}
       </Link>
       {/* Show the link to the info page and the logout button if the user is logged in */}
-      {props.user.id && (
+      {/* {props.user.id && (
         <>
           <Link className="nav-link" to="/createevent">
             Create Event Page
@@ -31,7 +31,7 @@ const Nav = (props) => (
         Success Page
         </Link>
         </>
-      )}
+      )} */}
       {/* Always show this link since the about page is not protected */}
       <Link className="nav-link" to="/about">
         About

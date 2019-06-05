@@ -22,7 +22,8 @@ router.get('/:id', (req,res) => {
 // getting the event detail for calender
 router.get('/cal/:id', (req,res) => {
     console.log(req.params.id);
-    let query = `select c.childname ||':'|| e.eventname as title, startdate as start, enddate as end, 'false' as allDay,
+    let query = `select c.childname ||':'|| e.eventname as title, 
+    to_char(startdate,'YYYY-MM-DD HH24:MI:SS') as start, to_char(enddate,'YYYY-MM-DD HH24:MI:SS') as end, 'false' as allDay,
      '' as resouce  from  user_child_event uce join child c on uce.child_id=c.id
     join event e on e.id=uce.event_id where e.status!='D' and c.user_id =$1;`;
     pool.query(query,[req.params.id])

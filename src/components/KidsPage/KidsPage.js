@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import swal from 'sweetalert';
 //import '../RegisterPage/RegisterPage.css';
 
 class KidsPage extends Component {
@@ -21,6 +22,7 @@ class KidsPage extends Component {
             gender: this.state.gender,
            },
         })
+        swal("Done!", "You registered a kid!");
         this.props.history.push('/home');
       }
 

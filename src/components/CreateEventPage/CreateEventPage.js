@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Select from 'react-select';
+import swal from 'sweetalert';
+
 // This is one of our simplest components
 // It doesn't have local state, so it can be a function component.
 // It doesn't dispatch any redux actions or display any part of redux state
@@ -48,6 +50,7 @@ class CreateEventPage extends Component {
         invites: this.state.invites,
       },
     })
+    swal("Good job!", "You Created an Event!");
     this.props.history.push('/home');
   }
   handleInputChangeFor = propertyName => (event) => {
@@ -139,8 +142,6 @@ class CreateEventPage extends Component {
            />
           </div>
           <div>
-            <button className="invite-button">Invites</button>
-          <br></br>
             <button
               className="create-button"
               onClick={this.registerEvent}>

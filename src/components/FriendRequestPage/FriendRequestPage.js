@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Select from 'react-select';
+import swal from 'sweetalert';
 // This is one of our simplest components
 // It doesn't have local state, so it can be a function component.
 // It doesn't dispatch any redux actions or display any part of redux state
@@ -35,6 +36,7 @@ class FriendRequestPage extends Component {
         userFriends: this.state.userFriends,
       },
     })
+    swal("You made a Friend!", "You send a Friend Request!");
     this.props.history.push('/home');
   }
   handleInputChangeFor = propertyName => (event) => {
