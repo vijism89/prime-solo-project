@@ -51,6 +51,11 @@ class UserPage extends Component {
     
   }
 
+  updateEvent = (eventIdToUpdate) => {
+    this.props.dispatch({ type:'UPDATE_EVENT', payload: {eventId:`${eventIdToUpdate}`, userId:`${this.props.reduxState.user.id}`}})
+    this.props.history.push('/createevent');
+  }
+
   render() {
     return (
       <div>
@@ -121,8 +126,8 @@ class UserPage extends Component {
                          <td>{event.place}</td>
                          <td>{event.contact_info}</td>
                          <td>{event.comments}</td>
-                         <td><button onClick = {() => {this.props.history.push('/success');}}>Details</button></td>
-                         <td><button>Update</button></td>
+                         <td><button value={event.id} onClick = {() => {this.props.history.push('/success');}}>Details</button></td>
+                         <td><button value={event.id} onClick= {() => this.updateEvent(event.id)}>Update</button></td>
                          <td><button value={event.id} onClick={() => this.deleteEvent(event.id)}>Delete</button></td>
                        </tr>
                     )

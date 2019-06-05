@@ -52,7 +52,8 @@ input {
 }
 table {
     border-collapse: collapse;
-    width: 100%;
+    /* width: 100%; */
+    width:700px;
   }
   
   th, td {
@@ -160,4 +161,34 @@ table {
 /* Add a background color on hover */
 .btn-group button:hover {
   background-color: #b811af;
+}
+
+button {
+  border-radius: 15px;
+  margin: .2rem;
+  /* 1 rem = 16px */
+}
+button:hover {
+  box-shadow: 2px 2px #888888;
+
+}
+
+.exampleClass {
+
+  /* css grids */
+  /* horiztal */
+  justify-content: center;
+  justify-items: center;
+  justify-self: center;
+
+/* vertical */
+align-content: center;
+
+/* Normal CSS */
+/* horizontal */
+text-align: center;
+
+/* vertical */
+line-height: 30px;
+  
 }

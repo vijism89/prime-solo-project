@@ -29,7 +29,14 @@ function* getEventsCal(action) {
     
     try {
         let eventResponse = yield axios.get(`/api/event/cal/${action.payload}`);
-        yield put({ type: 'SET_EVENTS_CAL', payload: eventResponse.data})
+        console.log('eventResponse::: ->',eventResponse);
+        let finalEventResult=[];
+        for (let event of eventResponse.data){
+            event.start=new Date(event.start);
+            event.end=new Date(event.end);
+            finalEventResult.push(event);
+        }
+        yield put({ type: 'SET_EVENTS_CAL', payload: finalEventResult})
     } catch (error) {
         console.log(error)
     }
@@ -43,6 +50,15 @@ function* registerEvent(action) {
     } catch (error) {
         console.log('Error with creating event', error);
     }
+}
+
+function* updateEvent(action) {
+    try{
+      yield axios.put(`/api/event/${action.payload.eventId}`)
+      yield put({ type: 'GET_EVENTS',payload: action.payload.userId });
+    }catch (error) {
+        console.log('Error with updating event', error);
+}
 }
 
 function* eventToDelete(action) {
@@ -62,7 +78,8 @@ function* eventsaga() {
     yield takeLatest('GET_EVENTS', getEvents);
     yield takeLatest('DELETE_EVENT', eventToDelete);
     yield takeLatest('GET_EVENTS_CAL', getEventsCal);
-    yield takeLatest('EVENT_DETAILS', eventDetails)
+    yield takeLatest('EVENT_DETAILS', eventDetails);
+    yield takeLatest('UPDATE_EVENT', updateEvent)
 }
 
 export default eventsaga;

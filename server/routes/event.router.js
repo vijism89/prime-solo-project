@@ -39,6 +39,7 @@ router.get('/cal/:id', (req,res) => {
 
 router.get('/success/:id', (req,res) => {
     console.log(req.params.id);
+    //req.user
     let query = `select c.childname, e.eventname  from  user_child_event uce join child c on uce.child_id=c.id
     join event e on e.id=uce.event_id where e.status!='D' and c.user_id =$1;`;
     pool.query(query,[req.params.id])
@@ -90,6 +91,35 @@ router.post('/', async (req, res) => {
         client.release()
     }
 });
+
+// router.put('/:id', (req, res) => {
+//     const updatedEvent = req.body;
+  
+//     const queryText = `UPDATE "event" SET "user_id" = $1 ,
+//     "eventname" = $2,"startdate" = $3,
+//     "enddate" = $4,"place" = $5,
+//     "contact_info" = $6,"comments" = $7,
+//     "status" = $8 
+//     WHERE event.id= $9`;
+  
+//     const queryValues = [
+//       updatedEvent.user_id,
+//       updatedEvent.eventname,
+//       updatedEvent.startdate,
+//       updatedEvent.enddate,
+//       updatedEvent.place,
+//       updatedEvent.contact_info,
+//       updatedEvent.comments,
+//       updatedEvent.status,
+//     ];
+  
+//     pool.query(queryText, queryValues,[req.params.id])
+//       .then((result) => { res.sendStatus(200); })
+//       .catch((err) => {
+//         console.log('Error completing UPDATING event query', err);
+//         res.sendStatus(500);
+//       });
+//   });
 
 router.delete('/:id',(req, res) => {
     console.log('delete this', req.params.id)
