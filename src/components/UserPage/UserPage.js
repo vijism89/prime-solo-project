@@ -112,8 +112,8 @@ class UserPage extends Component {
                        <tr key={event.id}>
                          <td >{event.id}</td>
                          <td>{event.eventname}</td>
-                         <td>{event.startdate}</td>
-                         <td>{event.enddate}</td>
+                         <td>{event.startdate.substr(0,16)}</td>
+                         <td>{event.enddate.substr(0,16)}</td>
                          <td>{event.place}</td>
                          <td>{event.contact_info}</td>
                          <td>{event.comments}</td>
