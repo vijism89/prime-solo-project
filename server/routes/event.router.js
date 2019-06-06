@@ -53,9 +53,14 @@ router.get('/cal/:id', (req,res) => {
 
 router.get('/success/:id', (req,res) => {
     console.log(req.params.id);
+    console.log('why',req.params.id);
     //req.user
-    let query = `select c.childname, e.eventname  from  user_child_event uce join child c on uce.child_id=c.id
-    join event e on e.id=uce.event_id where e.status!='D' and c.user_id =$1;`;
+    // let query = `select c.childname, e.eventname  from  user_child_event uce join child c on uce.child_id=c.id
+    // join event e on e.id=uce.event_id where e.status!='D' and c.user_id =$1;`;
+    let query = `select uce.emailkey, u.email, u.username, e.eventname, c.childname from user_child_event uce, child c, event e,
+    "user" u where c.id=uce.child_id  and e.id=uce.event_id and u.id=c.user_id
+    and uce.event_id=$1;
+   `
     pool.query(query,[req.params.id])
         .then( (result) => {
             res.send(result.rows);
@@ -84,7 +89,7 @@ router.post('/', async (req, res) => {
             invites
         } = req.body;
         await client.query('BEGIN')
-        const eventInsertResults = await client.query(`INSERT INTO "event" ("user_id", "eventname", "startdate","enddate", "place", "contact_info", "comments", "status")
+        const eventInsertResults = await client.query(`INSERT INTO "event" ("user_id", "eventname", "startdate","enddate", "place", "hostinfo", "comments", "status")
         VALUES ($1, $2, $3, $4, $5, $6, $7,$8) RETURNING id;`, [userId, eventname, startdate, enddate, place, hostinfo, comments, 'N']);
         console.log('here 1');
         const eventId = eventInsertResults.rows[0].id;

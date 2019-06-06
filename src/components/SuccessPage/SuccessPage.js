@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 
 class SuccessPage extends Component {
 
-  componentWillMount() {
-    this.props.dispatch({ type:'EVENT_DETAILS', payload:this.props.reduxState.user.id})
+  componentDidMount() {
+    this.props.dispatch({ type:'SET_DETAILS', payload:this.props.reduxState.user.id})
   }
 
     render () {
@@ -27,9 +27,11 @@ class SuccessPage extends Component {
                 return (
                   //  <p>{event.id}</p>
                        <tr key={detail.id}>
-                         <td >{detail.childname}</td>
-                         <td>{detail.eventname}</td>
-                       </tr>
+                       <td>{detail.username}</td>
+                       <td>{detail.email}</td>
+                      <td >{detail.childname}</td>
+                      <td>{detail.eventname}</td>
+                    </tr>
                     )
               }) : <tr></tr>}
                   </tbody>

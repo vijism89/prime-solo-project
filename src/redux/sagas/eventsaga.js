@@ -14,7 +14,7 @@ function* getEvents(action) {
 }
 
 function* eventDetails(action) {
-    console.log('abc',action.payload);
+    console.log('abc',action.payload.eventId);
     
     try {
         let detailsResponse = yield axios.get(`/api/event/success/${action.payload}`);

@@ -47,6 +47,21 @@ class UserPage extends Component {
     this.props.history.push('/createevent');
   }
 
+  eventDetail = (eventIdForDetail) => {
+    //this.props.dispatch({ type:'GET_EVENT', payload: {eventId:`${eventIdToUpdate}`, userId:`${this.props.reduxState.user.id}`}})
+    // if(this.props.reduxState.events!=null && 
+    //   this.props.reduxState.events.length>0){
+    //     console.log('EVENTS: ',this.props.reduxState.events);
+    //     console.log('eventIdForDetail: ',eventIdForDetail);
+    //     let detail = this.props.reduxState.events.find((e) => e.id === eventIdForDetail);
+        // objArray.find((o) => o.name === name).id = newId;
+        this.props.dispatch({type: 'EVENT_DETAILS', payload: eventIdForDetail});
+        //console.log('event detail', detail);
+      //}
+    this.props.history.push('/success');
+  }
+
+
   render() {
     return (
       <div>
@@ -117,7 +132,7 @@ class UserPage extends Component {
                          <td>{event.place}</td>
                          <td>{event.contact_info}</td>
                          <td>{event.comments}</td>
-                         <td><button value={event.id} onClick = {() => {this.props.history.push('/success');}}>Details</button></td>
+                         <td><button value={event.id} onClick = {() => this.eventDetail(event.id)}>Details</button></td>
                          <td><button value={event.id} onClick= {() => this.updateEvent(event.id)}>Update</button></td>
                          <td><button value={event.id} onClick={() => this.deleteEvent(event.id)}>Delete</button></td>
                        </tr>
