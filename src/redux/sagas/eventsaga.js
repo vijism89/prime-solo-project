@@ -6,7 +6,7 @@ function* getEvents(action) {
     console.log('abc',action.payload);
     
     try {
-        let eventResponse = yield axios.get(`/api/event/${action.payload}`);
+        let eventResponse = yield axios.get(`/api/event/uid/${action.payload}`);
         yield put({ type: 'SET_EVENTS', payload: eventResponse.data})
     } catch (error) {
         console.log(error)
@@ -52,9 +52,9 @@ function* registerEvent(action) {
     }
 }
 
-function* updateEvent(action) {
+function* getEvent(action) {
     try{
-      yield axios.put(`/api/event/${action.payload.eventId}`)
+      yield axios.get(`/api/event/eid/${action.payload.eventId}`)
       yield put({ type: 'GET_EVENTS',payload: action.payload.userId });
     }catch (error) {
         console.log('Error with updating event', error);
@@ -79,7 +79,7 @@ function* eventsaga() {
     yield takeLatest('DELETE_EVENT', eventToDelete);
     yield takeLatest('GET_EVENTS_CAL', getEventsCal);
     yield takeLatest('EVENT_DETAILS', eventDetails);
-    yield takeLatest('UPDATE_EVENT', updateEvent)
+    yield takeLatest('GET_EVENT', getEvent)
 }
 
 export default eventsaga;

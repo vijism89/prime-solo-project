@@ -16,24 +16,6 @@ import swal from 'sweetalert';
 
 
 const localizer = BigCalendar.momentLocalizer(moment) // or globalizeLocalizer
-const aaa1 = {
-  title: 'test1',
-  start: new Date("2019-06-03 13:00:00"),
-  end: new Date("2019-06-03 14:30:00"),
-  allDay: false,
-  resource: '',
-}
-const aaa2= {
-  title: 'test 3',
-  start: new Date("2019-06-03 15:30:00"),
-  end: new Date("2019-06-03 16:30:00"),
-  allDay: false,
-  resource: '',
-}
-
-const myEventsList = [
-    aaa1,aaa2
-]
 
 
 class UserPage extends Component {
@@ -52,7 +34,16 @@ class UserPage extends Component {
   }
 
   updateEvent = (eventIdToUpdate) => {
-    this.props.dispatch({ type:'UPDATE_EVENT', payload: {eventId:`${eventIdToUpdate}`, userId:`${this.props.reduxState.user.id}`}})
+    //this.props.dispatch({ type:'GET_EVENT', payload: {eventId:`${eventIdToUpdate}`, userId:`${this.props.reduxState.user.id}`}})
+    if(this.props.reduxState.events!=null && 
+      this.props.reduxState.events.length>0){
+        console.log('EVENTS: ',this.props.reduxState.events);
+        console.log('eventIdToUpdate: ',eventIdToUpdate);
+        let selectedEvent = this.props.reduxState.events.find((e) => e.id === eventIdToUpdate);
+        // objArray.find((o) => o.name === name).id = newId;
+        this.props.dispatch({type: 'SELECTED_EVENT', payload: selectedEvent});
+        console.log('selected event', selectedEvent);
+      } 
     this.props.history.push('/createevent');
   }
 
@@ -74,7 +65,7 @@ class UserPage extends Component {
         <div><button
             type="button"
             className="create-button"
-            onClick={() => {this.props.history.push('/createevent');}}
+            onClick={() => {  this.props.dispatch({type: 'SELECTED_EVENT',payload:null}); this.props.history.push('/createevent');}}
           >Create Event</button></div>
           <div><button
           type="button"

@@ -32,7 +32,13 @@ class CreateEventPage extends Component {
 
   componentWillMount(){
     console.log('hello world');
+    console.log('selected event', this.props.reduxState.selectedEvent)
     this.props.dispatch({type:'GET_KIDS', payload:this.props.reduxState.user.id});
+    if(this.props.reduxState.selectedEvent != null){
+      this.setState(
+        this.props.reduxState.selectedEvent
+      )
+    }
   }
 
   registerEvent = (event) => {
@@ -61,6 +67,21 @@ class CreateEventPage extends Component {
   render() {
     //  const { selectedOption } = this.state;
     console.log(this.state);
+    let button;
+            if(this.props.reduxState.selectedEvent != null){
+            button = <button
+              className="update-button"
+              onClick={this.updateEvent}>
+              Update 
+              </button>;
+            }
+            else {
+              button = <button
+              className="create-button"
+              onClick={this.registerEvent}>
+              Create 
+              </button>;
+            }
     return (
       <div>
         <form className="event-form">
@@ -142,11 +163,7 @@ class CreateEventPage extends Component {
            />
           </div>
           <div>
-            <button
-              className="create-button"
-              onClick={this.registerEvent}>
-              Create 
-              </button>
+            {button}
           </div>
         </form>
       </div>

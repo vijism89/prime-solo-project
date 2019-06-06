@@ -4,10 +4,24 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 // getting the event detail 
-router.get('/:id', (req,res) => {
+router.get('/uid/:id', (req,res) => {
     console.log(req.params.id);
     let query = `SELECT * FROM "event"
     WHERE user_id = $1 AND status != 'D'`;
+    pool.query(query,[req.params.id])
+        .then( (result) => {
+            res.send(result.rows);
+        })
+        .catch( (error) => {
+            console.log(`Error on query ${error}`);
+            res.sendStatus(500);
+        })
+}
+)
+router.get('/eid/:id', (req,res) => {
+    console.log(req.params.id);
+    let query = `SELECT * FROM "event"
+    WHERE id = $1 AND status != 'D'`;
     pool.query(query,[req.params.id])
         .then( (result) => {
             res.send(result.rows);
@@ -75,13 +89,19 @@ router.post('/', async (req, res) => {
         console.log('here 1');
         const eventId = eventInsertResults.rows[0].id;
 // creating another query to insert the event and child relationship
-        await Promise.all(invites.map(invite => {
-            const insertEventChildText = `INSERT INTO "user_child_event" ("event_id", "child_id", "status") VALUES ($1, $2, $3)`;
+        let results=await Promise.all(invites.map(invite => {
+            const insertEventChildText = `INSERT INTO "user_child_event" ("event_id", "child_id", "status", "emailkey") VALUES ($1, $2, $3, md5(random()::text)) RETURNING id,emailkey`;
             const insertEventChildValues = [eventId, invite.value, 'N'];
-            return client.query(insertEventChildText, insertEventChildValues);
+           
+            return inviteInsertResults = client.query(insertEventChildText, insertEventChildValues);;
         }));
 
         await client.query('COMMIT')
+        //run this query
+//         select uce.emailkey, u.email, u.username, e.eventname, c.childname from user_child_event uce, child c, event e,
+//  "user" u where c.id=uce.child_id  and e.id=uce.event_id and u.id=c.user_id
+//  and uce.event_id=54;
+        console.log('results:: ',results);
         res.sendStatus(201);
     } catch (error) {
         await client.query('ROLLBACK')
