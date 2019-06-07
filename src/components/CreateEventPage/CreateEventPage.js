@@ -41,6 +41,24 @@ class CreateEventPage extends Component {
     }
   }
 
+  updateEvent = (event) => {
+    event.preventDefault();
+    this.props.dispatch({type:'MAKE_CHANGE', 
+    payload: {
+      eventId:this.props.reduxState.selectedEvent.id,
+      userId:this.props.reduxState.user.id,
+      eventname: this.state.eventname,
+      startdate: this.state.startdate,
+      enddate: this.state.enddate,
+      place: this.state.place,
+      hostinfo: this.state.hostinfo,
+      comments: this.state.comments,
+      invites: this.state.invites,
+    },})
+    this.props.dispatch({ type: 'GET_EVENTS',payload:this.props.reduxState.user.id });
+    this.props.history.push('/home');
+  }
+
   registerEvent = (event) => {
     event.preventDefault();
     this.props.dispatch({

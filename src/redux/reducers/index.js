@@ -8,6 +8,7 @@ import newFriends from './friendReducer';
 import eventsCal from './eventCalReducer';
 import eventDetails from './eventDetailsReducer';
 import selectedEvent from './selectedReducer';
+import updatedEvent from './updatedEventReducer';
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   eventsCal,
   eventDetails,
   selectedEvent,
+  updatedEvent,
 });
 
 export default rootReducer;

@@ -17,9 +17,11 @@ class SuccessPage extends Component {
               <table>
                   <tbody>
                   <tr>
-                    <th>Name</th>
+                    <th>Username</th>
                     <th>Email</th>
-                    <th>Response</th>
+                    <th>Childname</th>
+                    <th>Eventname</th>
+                    <th>Status</th>
                   </tr>
                   {this.props.reduxState.eventDetails!=null && 
               this.props.reduxState.eventDetails.length>0 
@@ -31,6 +33,7 @@ class SuccessPage extends Component {
                        <td>{detail.email}</td>
                       <td >{detail.childname}</td>
                       <td>{detail.eventname}</td>
+                      <td>{detail.status}</td>
                     </tr>
                     )
               }) : <tr></tr>}

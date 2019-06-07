@@ -1,4 +1,4 @@
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, takeLatest, take } from 'redux-saga/effects';
 import axios from 'axios';
 
 
@@ -61,6 +61,15 @@ function* getEvent(action) {
 }
 }
 
+function* updateEvent(action) {
+    try{
+        yield axios.put('/api/event/change',action.payload);
+        //yield put({ type: 'GET_EVENTS',payload: action.payload });
+      }catch (error) {
+          console.log('Error with updating event', error);
+  } 
+}
+
 function* eventToDelete(action) {
     try {
         yield axios.delete(`/api/event/${action.payload.eventId}`)
@@ -79,7 +88,8 @@ function* eventsaga() {
     yield takeLatest('DELETE_EVENT', eventToDelete);
     yield takeLatest('GET_EVENTS_CAL', getEventsCal);
     yield takeLatest('EVENT_DETAILS', eventDetails);
-    yield takeLatest('GET_EVENT', getEvent)
+    yield takeLatest('GET_EVENT', getEvent);
+    yield takeLatest('MAKE_CHANGE',updateEvent);
 }
 
 export default eventsaga;

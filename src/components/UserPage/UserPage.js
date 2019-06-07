@@ -48,16 +48,7 @@ class UserPage extends Component {
   }
 
   eventDetail = (eventIdForDetail) => {
-    //this.props.dispatch({ type:'GET_EVENT', payload: {eventId:`${eventIdToUpdate}`, userId:`${this.props.reduxState.user.id}`}})
-    // if(this.props.reduxState.events!=null && 
-    //   this.props.reduxState.events.length>0){
-    //     console.log('EVENTS: ',this.props.reduxState.events);
-    //     console.log('eventIdForDetail: ',eventIdForDetail);
-    //     let detail = this.props.reduxState.events.find((e) => e.id === eventIdForDetail);
-        // objArray.find((o) => o.name === name).id = newId;
         this.props.dispatch({type: 'EVENT_DETAILS', payload: eventIdForDetail});
-        //console.log('event detail', detail);
-      //}
     this.props.history.push('/success');
   }
 
@@ -119,7 +110,7 @@ class UserPage extends Component {
                          <th>UPDATE</th>
                          <th>DELETE</th>
                          </tr>
-        {this.props.reduxState.events!=null && 
+       {this.props.reduxState.events!=null && 
               this.props.reduxState.events.length>0 
               ? this.props.reduxState.events.map(event => {
                 return (
@@ -130,14 +121,16 @@ class UserPage extends Component {
                          <td>{event.startdate.substr(0,16)}</td>
                          <td>{event.enddate.substr(0,16)}</td>
                          <td>{event.place}</td>
-                         <td>{event.contact_info}</td>
+                         <td>{event.hostinfo}</td>
                          <td>{event.comments}</td>
-                         <td><button value={event.id} onClick = {() => this.eventDetail(event.id)}>Details</button></td>
+                         <td><button value={event.id} onClick = {() => {this.eventDetail(event.id);}}>Details</button></td>
                          <td><button value={event.id} onClick= {() => this.updateEvent(event.id)}>Update</button></td>
                          <td><button value={event.id} onClick={() => this.deleteEvent(event.id)}>Delete</button></td>
                        </tr>
                     )
-              }) : <tr></tr>}
+              }) : <tr>
+                <td></td>
+              </tr>}
               </tbody>
                    </table>
                </div>
