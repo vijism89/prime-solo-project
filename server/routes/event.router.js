@@ -1,8 +1,33 @@
 const express = require('express');
 const pool = require('../modules/pool');
-
+require('dotenv').config();
 const router = express.Router();
 
+//email transporter
+const nodemailer = require('nodemailer');
+
+//login information stored in .env file
+const transport = {
+   //console.log('',process.env.email_user,process.env.email_pass);
+    host: 'smtp.gmail.com',
+    auth: {
+        // user: process.env.email_user,
+        // pass: process.env.email_pass
+        user:'vijism89test@gmail.com',
+        pass:'mobile$4'
+    }
+}
+
+const transporter = nodemailer.createTransport(transport)
+
+//server terminal will say if ready to send emails
+transporter.verify((error, success) => {
+    if (error) {
+        console.log(error);
+    } else {
+        console.log('Server is ready to take messages');
+    }
+});
 // getting the event detail 
 router.get('/uid/:id', (req,res) => {
     console.log(req.params.id);
@@ -106,6 +131,23 @@ router.post('/', async (req, res) => {
 //         select uce.emailkey, u.email, u.username, e.eventname, c.childname from user_child_event uce, child c, event e,
 //  "user" u where c.id=uce.child_id  and e.id=uce.event_id and u.id=c.user_id
 //  and uce.event_id=54;
+        let query = `select uce.emailkey, u.email, u.username, e.eventname,e.id, c.childname,e.hostinfo,e.startdate,e.enddate from user_child_event uce, child c, event e,
+          "user" u where c.id=uce.child_id  and e.id=uce.event_id and u.id=c.user_id
+          and uce.event_id=$1;
+        `
+        pool.query(query,[eventId])
+            .then( (result) => {             
+                for (obj of result.rows)
+                {
+                    sendEmail (obj.username, obj.email, obj.emailkey, obj.id, obj.eventname,obj.hostinfo,obj.startdate,obj.enddate);
+                }
+            })
+            .catch( (error) => {
+                console.log(`Error on query ${error}`);
+                res.sendStatus(500);
+            })
+        
+
         console.log('results:: ',results);
         res.sendStatus(201);
     } catch (error) {
@@ -116,6 +158,34 @@ router.post('/', async (req, res) => {
         client.release()
     }
 });
+
+function sendEmail (name, sendEmail, emailKey, eventId, eventName,hostInfo,startdate,enddate)
+{
+   // const name = `${req.user.first_name} ${req.user.last_name}`;
+   // const sendEmail = req.user.username;
+   // const message = `Invite for: ${eventName}`;
+    //content holds the body of the email to be sent
+    //const content = `Hello ${name} \n Invite for: ${eventName} \n message: ${message} `
+    const content =`<html><body><h3>Hello ${name}!</h3><br> Invite for: ${eventName}<br> Host: ${hostInfo}<br> Date: ${startdate} to ${enddate}<p><a href="http://${process.env.serverip}:5000/api/event/emkey/${eventId}/${emailKey}/A">Accept</a></p><p><a href="http://${process.env.serverip}:5000/api/event/emkey/${eventId}/${emailKey}/D">Decline</a></p><p><a href="http://${process.env.serverip}:5000/api/event/emkey/${eventId}/${emailKey}/T">Tentative</a></p></body></html>`
+
+
+
+    const mail = {
+        from: name,
+        to: sendEmail,
+        subject: 'Welcome to '+ eventName,
+        html: content
+    }
+
+    //send result
+    transporter.sendMail(mail, (err, data) => {
+        if (err) {
+           return 'fail';
+        } else {
+           return 'success';
+        }
+    })
+}
 
 router.put('/change', async (req, res) => {
     const updatedEvent = req.body;
@@ -138,6 +208,33 @@ router.put('/change', async (req, res) => {
          //if any steps fail, abort entire transaction
          await connection.query('ROLLBACK');
          console.log('transaction error - rolling back update event:', error);
+         res.sendStatus(500);
+ 
+     } finally {
+         connection.release()
+     }
+  });
+
+  router.get('/emkey/:eid/:ekey/:act', async (req, res) => {
+    const eventResponse = req.body;
+      //use the same connection for all queries
+    const connection = await pool.connect()
+
+     try {
+        //begin the transaction
+        await connection.query('BEGIN');
+        const eventResponseQuery = `UPDATE "user_child_event" SET "status" = $1 WHERE "emailkey" = $2;`;
+        const eventResponseValues = [req.params.act, req.params.ekey];
+        await connection.query(eventResponseQuery, eventResponseValues);
+         //commit the transaction
+         console.log('put',eventResponseQuery, eventResponseValues )
+         await connection.query('COMMIT');
+         res.sendStatus(200);
+ 
+     } catch (error) {
+         //if any steps fail, abort entire transaction
+         await connection.query('ROLLBACK');
+         console.log('transaction error - rolling back email event:', error);
          res.sendStatus(500);
  
      } finally {
