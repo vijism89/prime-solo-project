@@ -11,16 +11,36 @@ body {
 form {
     background-color: #97dce2;
     width: 30%;
-    height: 450px;
+    height: 550px;
     margin: 20px auto;
     padding: 25px;
     border-radius: 2px;
 }
 
-input {
+.login-form {
+  background-color: #36d3df;
+  width: 250px;
+  height: 250px;
+  margin: 20px auto;
+  padding: 25px;
+  border-radius: 2px;
+  align-content: center;
+}
+
+/* input {
     margin: 5px;
     margin-bottom: 10px;
+} */
+
+input {
+  width: 100%;
+  padding: 5px 10px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid rgb(12, 11, 11);
 }
+
 
 .log-in, .log-out, .register {
   background-color: #00acb0;
@@ -61,7 +81,7 @@ table {
     padding: 8px;
   }
   
-  tr:nth-child(even){background-color: #f2f2f2}
+  tr:nth-child(even){background-color: #dce4e4}
   
   th {
     background-color: rgb(27, 221, 235);
@@ -71,11 +91,12 @@ table {
   .kids-form {
     background-color: #92d7dd;
     width: 20%;
-    height: 200px;
+    height: 300px;
     margin: 20px auto;
     padding: 25px;
     border-radius: 4px;
     text-align: center;
+    justify-items: center;
   }
 
   .create-button {
@@ -86,6 +107,7 @@ table {
     min-width: 100px;
     outline:0;
     cursor: pointer;
+    justify-items: center;
   }
 
   .invite-button {
@@ -191,4 +213,22 @@ text-align: center;
 /* vertical */
 line-height: 30px;
   
+}
+
+.details-button {
+  background-color: #ecdd09;
+}
+
+.update-button {
+  background-color: #09dd3e;
+}
+
+.delete-button {
+  background-color: rgb(211, 11, 11);
+  color: #dce4e4;
+}
+
+.user-class {
+  
+  justify-content: center;
 }

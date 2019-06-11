@@ -30,7 +30,7 @@ class CreateEventPage extends Component {
     console.log(`Option selected:`, invites);
   }
 
-  componentWillMount(){
+  componentDidMount(){
     console.log('hello world');
     console.log('selected event', this.props.reduxState.selectedEvent)
     this.props.dispatch({type:'GET_KIDS', payload:this.props.reduxState.user.id});
@@ -76,6 +76,17 @@ class CreateEventPage extends Component {
     })
     swal("Good job!", "You Created an Event!");
     this.props.history.push('/home');
+  }
+
+  fillForm = (event) => {
+    this.setState ({
+      eventname: 'Birthday',
+      startdate: '06/29/2019 10:00am',
+      enddate: '06/29/2019 12:00pm',
+      place: 'Applevalley',
+      hostinfo: 'sridhar & viji',
+      comments: 'Please RSVP',
+    })
   }
   handleInputChangeFor = propertyName => (event) => {
     this.setState({
@@ -184,6 +195,7 @@ class CreateEventPage extends Component {
             {button}
           </div>
         </form>
+        <button onClick={this.fillForm}></button>
       </div>
     )
   }

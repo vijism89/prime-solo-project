@@ -20,7 +20,7 @@ const localizer = BigCalendar.momentLocalizer(moment) // or globalizeLocalizer
 
 class UserPage extends Component {
 
-  componentWillMount() {
+  componentDidMount() {
     console.log('events are here');
     this.props.dispatch({ type: 'GET_EVENTS',payload:this.props.reduxState.user.id });
     this.props.dispatch({ type: 'GET_EVENTS_CAL',payload:this.props.reduxState.user.id });
@@ -55,11 +55,11 @@ class UserPage extends Component {
 
   render() {
     return (
-      <div>
+      <div className="user-class">
         <h1 id="welcome">
           Welcome, {this.props.reduxState.user.username}!
     </h1>
-        <p>Your ID is: {this.props.reduxState.user.id}</p>
+        {/* <p>Your ID is: {this.props.reduxState.user.id}</p> */}
         <div className="btn-group">
         <div>
           <button 
@@ -123,9 +123,9 @@ class UserPage extends Component {
                          <td>{event.place}</td>
                          <td>{event.hostinfo}</td>
                          <td>{event.comments}</td>
-                         <td><button value={event.id} onClick = {() => {this.eventDetail(event.id);}}>Details</button></td>
-                         <td><button value={event.id} onClick= {() => this.updateEvent(event.id)}>Update</button></td>
-                         <td><button value={event.id} onClick={() => this.deleteEvent(event.id)}>Delete</button></td>
+                         <td><button className="details-button" value={event.id} onClick = {() => {this.eventDetail(event.id);}}>Details</button></td>
+                         <td><button className="update-button" value={event.id} onClick= {() => this.updateEvent(event.id)}>Update</button></td>
+                         <td><button className="delete-button" value={event.id} onClick={() => this.deleteEvent(event.id)}>Delete</button></td>
                        </tr>
                     )
               }) : <tr>
